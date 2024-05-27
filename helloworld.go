@@ -1,8 +1,28 @@
-package main //패키지는 여러 코드를 하나로 묶는 역할
-//go로 작성된 프로그램은 main package를 포함해야하며 프로그램 실행시 main package의 main함수가 실행되게 됨
+// package main //패키지는 여러 코드를 하나로 묶는 역할
+// //go로 작성된 프로그램은 main package를 포함해야하며 프로그램 실행시 main package의 main함수가 실행되게 됨
+// //main 패키지를 특별하게 인식 = 실행 시작 점으로 인식,
 
-import "fmt" //문자열 출력 역할
+// import (
+// 	"fmt"
+// )
 
-func main() {
-	fmt.Println("hello world")
-}
+//문자열 출력 역할
+//변수 선언 : var을 이용해 명시적으로 선언, :=으로 묵시적으로 선언
+//상수선언: const
+//문자열 관련 조작 및 처리는 strings 패키지 이용
+//중괄호의 위치가 구문 맨 뒤에서 시작해야함. 안그럼 컴파일 오류남
+//따로 조건문 쓸 때, state문에 괄호 안 쓰는듯
+//크기를 지정하지 않고 생성하고 동적으로 증가시킬 수 있는 슬라이스가 잇음
+//go는 클래스, 객체, 상속 개념이 없음
+//go의 구조체는 필드만을 가짐. 메소드는 따로 선언해야함
+//인터페이스는 메서드의 집합
+// const x = 1
+// func main() {
+// 	var i1 int = 10
+// 	var s1 string = "string"
+// 	var i2 = 10
+// 	i3 := "hello"
+
+// 	fmt.Println(i1, i2, s1, i3)
+// 	fmt.Println(x)
+// }
