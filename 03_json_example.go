@@ -7,21 +7,21 @@ import (
 	"os"
 )
 
-type SuperHero struct {
-	SquadName string `json:"squadName"`
-	HomeTown string `json:"homeTown"`
-	Formed int `json:"formed"`
-	SecretBase string `json:"secretBase"`
-	Active bool `json:"active"`
-	Members [] struct {
-		Name string `json:"name"`
-		Age int `json:"age"`
-		SecretIdentity string `json:"secretIdentity"`
-		Powers []string `json:"powers"`
-	} `json:"members"`
-}
+// type SuperHero struct {
+// 	SquadName string `json:"squadName"`
+// 	HomeTown string `json:"homeTown"`
+// 	Formed int `json:"formed"`
+// 	SecretIdentity string `json:"secretBase"`
+// 	Active bool `json:"active"`
+// 	Members [] struct {
+// 		Name string `json:"name"`
+// 		Age int `json:"age"`
+// 		SecretIdentity string `json:"secretIdentity"`
+// 		Powers []string `json:"powers"`
+// 	} `json:"members"`
+// }
 
-func main() {
+func json_to_go() {
 	file, err := os.Open("03_json_example.json")
 	if err != nil {
 		return 
