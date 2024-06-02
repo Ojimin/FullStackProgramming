@@ -7,6 +7,7 @@ import (
 	"net/url" //url 인코딩 설정
 )
 
+
 func http_web_client() {
 	fmt.Println("## HTTP client started.")
 

@@ -10,7 +10,7 @@ import (
 // 	SquadName string `json:"squadName"`
 // 	HomeTown string `json:"homeTown"`
 // 	Formed int `json:"formed"`
-// 	SecretIdentity string `json:"secretBase"`
+// 	SecretBase string `json:"secretBase"`
 // 	Active bool `json:"active"`
 // 	Members [] struct {
 // 		Name string `json:"name"`
@@ -26,7 +26,7 @@ func json_to_go() {
 	// 	SquadName: "Super hero squad",
 	// 	HomeTown: "Metro City",
 	// 	Formed: 2016,
-	// 	SecretIdentity: "Super tower",
+	// 	SecretBase: "Super tower",
 	// 	Active: true,
 	// 	Members: []struct {
 	// 		Name string `json:"name"`

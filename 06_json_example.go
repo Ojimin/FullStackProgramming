@@ -19,7 +19,7 @@ type SuperHero struct {
 	} `json:"members"`
 }
 
-func main() {
+func jsonString_to_go() {
 	superHeroes_source := `{
 		"squadName": "Super hero squad",
 		"homeTown": "Metro City",
