@@ -1,4 +1,4 @@
-package main
+package http
 
 import (
 	"fmt"
@@ -8,7 +8,7 @@ import (
 )
 
 
-func http_web_client() {
+func Http_web_client() {
 	fmt.Println("## HTTP client started.")
 
 	fmt.Println("## GET request for http://localhost:8080/temp/")

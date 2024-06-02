@@ -4,7 +4,7 @@
 // 매개변수 추출 함수
 // 메인 함수 - 요청 핸들링 및
 // get요청에서 ? 뒤에 숫자들 받아 곱하기 해주고 post 요청에서 똑같이 calculation 해줄것
-package main
+package http
 
 import (
 	"fmt"
@@ -14,7 +14,7 @@ import (
 	"strings"
 )
 
-func main() {
+func Main_server() {
     var addr string = "localhost:8080"
     http.HandleFunc("/",func(w http.ResponseWriter, r *http.Request) {
         if r.Method == http.MethodGet {
@@ -28,7 +28,6 @@ func main() {
 		fmt.Println("Failed to start server:", err)
 	}
     fmt.Printf("## HTTP server started at http://%s.\n", addr)
-    http_web_client()
 }
 
 func http_web_server() {
