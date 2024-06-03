@@ -1,5 +1,5 @@
 // json 파일 읽은 후 to go data로 변환
-package main
+package json_example
 
 import (
 	"encoding/json"
@@ -7,21 +7,21 @@ import (
 	"os"
 )
 
-// type SuperHero struct {
-// 	SquadName string `json:"squadName"`
-// 	HomeTown string `json:"homeTown"`
-// 	Formed int `json:"formed"`
-// 	SecretIdentity string `json:"secretBase"`
-// 	Active bool `json:"active"`
-// 	Members [] struct {
-// 		Name string `json:"name"`
-// 		Age int `json:"age"`
-// 		SecretIdentity string `json:"secretIdentity"`
-// 		Powers []string `json:"powers"`
-// 	} `json:"members"`
-// }
+type SuperHero struct {
+	SquadName string `json:"squadName"`
+	HomeTown string `json:"homeTown"`
+	Formed int `json:"formed"`
+	SecretBase string `json:"secretBase"`
+	Active bool `json:"active"`
+	Members [] struct {
+		Name string `json:"name"`
+		Age int `json:"age"`
+		SecretIdentity string `json:"secretIdentity"`
+		Powers []string `json:"powers"`
+	} `json:"members"`
+}
 
-func json_to_go() {
+func JsonToGo() {
 	file, err := os.Open("03_json_example.json")
 	if err != nil {
 		return 

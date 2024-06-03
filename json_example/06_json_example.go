@@ -1,25 +1,26 @@
 // json 문자열을 go 데이터로 변환 및 출력
-package main
+package json_example
 
 import (
 	"encoding/json"
 	"fmt"
 )
-type SuperHero struct {
-	SquadName string `json:"squadName"`
-	HomeTown string `json:"homeTown"`
-	Formed int `json:"formed"`
-	SecretBase string `json:"secretBase"`
-	Active bool `json:"active"`
-	Members [] struct {
-		Name string `json:"name"`
-		Age int `json:"age"`
-		SecretIdentity string `json:"secretIdentity"`
-		Powers []string `json:"powers"`
-	} `json:"members"`
-}
 
-func jsonString_to_go() {
+// type SuperHero struct {
+// 	SquadName string `json:"squadName"`
+// 	HomeTown string `json:"homeTown"`
+// 	Formed int `json:"formed"`
+// 	SecretBase string `json:"secretBase"`
+// 	Active bool `json:"active"`
+// 	Members [] struct {
+// 		Name string `json:"name"`
+// 		Age int `json:"age"`
+// 		SecretIdentity string `json:"secretIdentity"`
+// 		Powers []string `json:"powers"`
+// 	} `json:"members"`
+// }
+
+func JsonStringToGo() {
 	superHeroes_source := `{
 		"squadName": "Super hero squad",
 		"homeTown": "Metro City",

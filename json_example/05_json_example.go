@@ -1,17 +1,16 @@
-// go 언어 to json 파일로 저장
-package main
+// go 데이터를 json 형태의 문자열 저장 및 출력
+package json_example
 
 import (
 	"encoding/json"
 	"fmt"
-	"os"
 )
 
 // type SuperHero struct {
 // 	SquadName string `json:"squadName"`
 // 	HomeTown string `json:"homeTown"`
 // 	Formed int `json:"formed"`
-// 	SecretIdentity string `json:"secretBase"`
+// 	SecretBase string `json:"secretBase"`
 // 	Active bool `json:"active"`
 // 	Members [] struct {
 // 		Name string `json:"name"`
@@ -21,13 +20,13 @@ import (
 // 	} `json:"members"`
 // }
 
-func go_to_json() {
-	
-	superHeroes := SuperHero {
+func JsonToGoPrint() {
+
+	superHeroes_source := SuperHero {
 		SquadName: "Super hero squad",
 		HomeTown: "Metro City",
 		Formed: 2016,
-		SecretIdentity: "Super tower",
+		SecretBase: "Super tower",
 		Active: true,
 		Members: []struct {
 			Name string `json:"name"`
@@ -69,20 +68,17 @@ func go_to_json() {
 	  },
 	}
 
-		fmt.Println(superHeroes.HomeTown)
-		fmt.Println(superHeroes.Active)
-		fmt.Println(superHeroes.Members[1].Powers[2])
-		
-		jsonData, err := json.MarshalIndent(superHeroes, "", "  ") //go to json 변환
+	data, err := json.MarshalIndent(superHeroes_source, "", "  ") //go to json
+	if err!=nil {
+		fmt.Println("json 변환 실패", err)
+		return
+	}
+	
+	fmt.Println(string(data))
 
-		file, err := os.Create("04_json_example.json")
-		if err != nil {
-			panic(err)
-		} 
-		defer file.Close()
 
-		_, err = file.Write(jsonData)
-		if err != nil {
-			return
-		}
+
+	
 }
+
+

@@ -8,14 +8,17 @@ package http
 
 import (
 	"fmt"
-	"io"
+	"log"
+	"net"
 	"net/http"
 	"strconv"
 	"strings"
 )
 
 func Main_server() {
-    var addr string = "localhost:8080"
+    server_name := "localhost"
+    server_port := 8080
+    addr := fmt.Sprintf("%s:%d", server_name, server_port)
     http.HandleFunc("/",func(w http.ResponseWriter, r *http.Request) {
         if r.Method == http.MethodGet {
             do_Get(w, r)
@@ -27,7 +30,7 @@ func Main_server() {
     if err != nil {
 		fmt.Println("Failed to start server:", err)
 	}
-    fmt.Printf("## HTTP server started at http://%s.\n", addr)
+    fmt.Printf("## HTTP server started at http://%s:%d.\n", server_name, server_port)
 }
 
 func http_web_server() {
@@ -36,51 +39,71 @@ func http_web_server() {
     })
     http.ListenAndServe(":8080", nil)
 }
-// 수정 필요
+
 func print_http_request_detail(request *http.Request) {
+    clientURL := request.RemoteAddr
+    client_address, port, err := net.SplitHostPort(clientURL)
+    if err!= nil {
+        log.Println("ERROR : Don't split host and port", err)
+        client_address = clientURL
+        port = "error"
+    }
     //Print HTTP request in detail.
-    fmt.Printf("::Client address : %s\n", request.RemoteAddr)
-    // fmt.Printf("::Client port   : %s\n", request.)
-    fmt.Printf("::Request command  : %s\n")
-    fmt.Printf("::Request line     : %s\n", request.RequestURI)
-    fmt.Printf("::Request path     : %s\n", request.URL.Path)
+    fmt.Printf("::Client address : %s\n", client_address)
+    fmt.Printf("::Client port   : %s\n", port)
+    fmt.Printf("::Request command  : %s\n", request.Method)
+    fmt.Printf("::Request line     : %s %s %s\n", request.Method, request.URL.RequestURI(), request.Proto)
+    query := request.URL.RawQuery
+    if query != "" {
+        query = "?" + query
+    }
+    fmt.Printf("::Request path     : %s%s\n", request.URL.Path, query)
     fmt.Printf("::Request version  : %s\n", request.Proto)       
 }
+
 func send_http_response_header(writer http.ResponseWriter) {
-    //200도 표시
+    writer.WriteHeader(http.StatusOK)
     writer.Header().Set("Content-type", "text/html")
 }
 
 func do_Get(writer http.ResponseWriter, request *http.Request) {
+    // HTTP GET request handler.
     fmt.Println("## do_GET() activated.")
+
+    //GET response header generation
     print_http_request_detail(request)
     send_http_response_header(writer)
-    if strings.Contains(request.URL.RawQuery, "?") {
-        routine := strings.Split(request.URL.RawQuery, "?")[1]
+
+    if strings.Contains(request.URL.RawQuery, "=") {
+        routine := request.URL.RawQuery
         parameter := parameter_retrieval(routine)
         para1, _ := strconv.Atoi(parameter[0])
         para2, _ := strconv.Atoi(parameter[1])
         result := simple_calc(para1, para2)
 
-        fmt.Fprintf(writer, "<html>")
-        fmt.Fprintf(writer, "GET request for calculation => %d x %d = %d", para1, para2, result)
-        fmt.Fprintf(writer, "</html>")
-        fmt.Printf( "## GET request for calculation => %d x %d = %d.", para1, para2, result)
+        writer.Write([]byte("<html>"))
+        get_response := fmt.Sprintf("GET request for calculation => %d x %d = %d", para1, para2, result)
+        writer.Write([]byte(get_response))
+        writer.Write([]byte("</html>"))
+        fmt.Printf( "## GET request for calculation => %d x %d = %d.\n", para1, para2, result)
     } else {
-        fmt.Fprintf(writer, "<html>")
-        fmt.Fprintf(writer, "<p>HTTP Request GET for Path: %s</p>",request.URL.Path)
-        fmt.Fprintf(writer, "</html>")
-        fmt.Printf("## GET request for directory => %s.",request.URL.Path)
+        writer.Write([]byte("<html>"))
+        writer.Write([]byte(fmt.Sprintf("<p>HTTP Request GET for Path: %s</p>",request.URL.Path )))
+        writer.Write([]byte("</html>"))
+        fmt.Printf("## GET request for directory => %s.\n",request.URL.Path)
     }
 }
 
 func do_Post(writer http.ResponseWriter, request *http.Request) {
+    //HTTP POST request handler.
     fmt.Println("## do_POST() activated.")
 
     print_http_request_detail(request)
     send_http_response_header(writer)
 
-    post_data, _ := io.ReadAll(request.Body)
+    content_length, _ := strconv.Atoi(request.Header.Get("Content-Length")) //data size 얻기
+    post_data := make([]byte, content_length)
+    request.Body.Read(post_data)
     defer request.Body.Close()
 
     parameter := parameter_retrieval(string(post_data))
