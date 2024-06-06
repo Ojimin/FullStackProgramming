@@ -22,7 +22,7 @@ type SuperHero struct {
 }
 
 func JsonToGo() {
-	file, err := os.Open("03_json_example.json")
+	file, err := os.Open("./json_example/03_json_example.json")
 	if err != nil {
 		return 
 	}
@@ -34,7 +34,7 @@ func JsonToGo() {
 	err = decoder.Decode(&superHeroes) //주소값을 넣어야함
 
 	//출력
-	fmt.Println(superHeroes.SquadName)
+	fmt.Println(superHeroes.HomeTown)
 	fmt.Println(superHeroes.Active)
 	fmt.Println(superHeroes.Members[1].Powers[2])
 }

@@ -1,9 +1,3 @@
-// 핸들러 함수 : http 메서드 요청 처리 & 요청 세부 정보, 응답 헤더 등 설정
-// get, post 요청 처리 함수
-// 계산 처리
-// 매개변수 추출 함수
-// 메인 함수 - 요청 핸들링 및
-// get요청에서 ? 뒤에 숫자들 받아 곱하기 해주고 post 요청에서 똑같이 calculation 해줄것
 package http
 
 import (
@@ -33,23 +27,16 @@ func Main_server() {
     fmt.Printf("## HTTP server started at http://%s:%d.\n", server_name, server_port)
 }
 
-func http_web_server() {
-	http.HandleFunc("/hello", func(w http.ResponseWriter,  req *http.Request) {
-        w.Write([]byte("Hello World"))
-    })
-    http.ListenAndServe(":8080", nil)
-}
-
 func print_http_request_detail(request *http.Request) {
     clientURL := request.RemoteAddr
-    client_address, port, err := net.SplitHostPort(clientURL)
+    clientAddress, port, err := net.SplitHostPort(clientURL)
     if err!= nil {
         log.Println("ERROR : Don't split host and port", err)
-        client_address = clientURL
+        clientAddress = clientURL
         port = "error"
     }
     //Print HTTP request in detail.
-    fmt.Printf("::Client address : %s\n", client_address)
+    fmt.Printf("::Client address : %s\n", clientAddress)
     fmt.Printf("::Client port   : %s\n", port)
     fmt.Printf("::Request command  : %s\n", request.Method)
     fmt.Printf("::Request line     : %s %s %s\n", request.Method, request.URL.RequestURI(), request.Proto)
@@ -63,7 +50,7 @@ func print_http_request_detail(request *http.Request) {
 
 func send_http_response_header(writer http.ResponseWriter) {
     writer.WriteHeader(http.StatusOK)
-    writer.Header().Set("Content-type", "text/html")
+    writer.Header().Set("Content-type", "text/html; charset=utf-8")
 }
 
 func do_Get(writer http.ResponseWriter, request *http.Request) {
@@ -113,7 +100,6 @@ func do_Post(writer http.ResponseWriter, request *http.Request) {
 
     post_response := fmt.Sprintf("POST request for calculation => %d x %d = %d", para1, para2, result)
     writer.Write([]byte(post_response))
-
     fmt.Printf("## POST request data => %s\n.", string(post_data))
     fmt.Printf("## POST request for calculation => %d x %d = %d.\n", para1, para2, result)
 }    

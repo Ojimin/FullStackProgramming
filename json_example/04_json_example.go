@@ -3,23 +3,8 @@ package json_example
 
 import (
 	"encoding/json"
-	"fmt"
 	"os"
 )
-
-// type SuperHero struct {
-// 	SquadName string `json:"squadName"`
-// 	HomeTown string `json:"homeTown"`
-// 	Formed int `json:"formed"`
-// 	SecretIdentity string `json:"secretBase"`
-// 	Active bool `json:"active"`
-// 	Members [] struct {
-// 		Name string `json:"name"`
-// 		Age int `json:"age"`
-// 		SecretIdentity string `json:"secretIdentity"`
-// 		Powers []string `json:"powers"`
-// 	} `json:"members"`
-// }
 
 func GoToJson() {
 	
@@ -67,12 +52,7 @@ func GoToJson() {
 			},	
 		},
 	  },
-	}
-
-		fmt.Println(superHeroes.HomeTown)
-		fmt.Println(superHeroes.Active)
-		fmt.Println(superHeroes.Members[1].Powers[2])
-		
+	}		
 		jsonData, err := json.MarshalIndent(superHeroes, "", "  ") //go to json 변환
 
 		file, err := os.Create("04_json_example.json")

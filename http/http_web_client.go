@@ -7,7 +7,6 @@ import (
 	"net/url" //url 인코딩 설정
 )
 
-
 func Http_web_client() {
 	fmt.Println("## HTTP client started.")
 
@@ -31,8 +30,7 @@ func Http_web_client() {
 	data := url.Values{}
 	data.Set("var1", "9")
 	data.Set("var2", "9")
-
-	http_request, _ = http.PostForm(" http://localhost:8080/", data)
+	http_request, _ = http.PostForm("http://localhost:8080/", data)
 	body, _ = io.ReadAll(http_request.Body)
 	fmt.Println("## POST response [start]")
 	fmt.Println(string(body))

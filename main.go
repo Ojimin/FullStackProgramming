@@ -1,18 +1,18 @@
 package main
 
-import (
-	"Webserver_Go/rest"
-)
+import "Webserver_Go/http"
 
 /*
-각 패키지 별로 주석을 해제하시면서 실행시키면 됩니다
+go init mod
+go mod tidy
+각 라인 별로 주석을 해제하시면서 실행시키면 됩니다
 */
 func main() {
 	/*
 	http_web_server & client
 	*/
 	// http.Main_server()
-	// http.Http_web_client()
+	http.Http_web_client()
 	/*
 	json_example
 	*/
@@ -24,5 +24,5 @@ func main() {
 	rest server & client
 	*/
 	// rest.RestServer()
-	rest.RestClient()	
+	// rest.RestClient()	
 }
