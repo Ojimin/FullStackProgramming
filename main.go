@@ -1,6 +1,10 @@
 package main
 
-import "Webserver_Go/http"
+import (
+	"Webserver_Go/http"
+	// "Webserver_Go/json_example"
+	// "Webserver_Go/rest"
+)
 
 /*
 go init mod

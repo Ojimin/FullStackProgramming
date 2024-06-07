@@ -10,9 +10,10 @@ import (
 )
 
 func Main_server() {
-    server_name := "localhost"
-    server_port := 8080
-    addr := fmt.Sprintf("%s:%d", server_name, server_port)
+    /* Main function. */
+    serverName := "localhost"
+    serverPort := 8080
+    addr := fmt.Sprintf("%s:%d", serverName, serverPort)
     http.HandleFunc("/",func(w http.ResponseWriter, r *http.Request) {
         if r.Method == http.MethodGet {
             do_Get(w, r)
@@ -22,9 +23,9 @@ func Main_server() {
     })
     err := http.ListenAndServe(addr, nil)
     if err != nil {
-		fmt.Println("Failed to start server:", err)
+		fmt.Println("Fail to start : ", err)
 	}
-    fmt.Printf("## HTTP server started at http://%s:%d.\n", server_name, server_port)
+    fmt.Printf("## HTTP server started at http://%s:%d.\n", serverName, serverPort)
 }
 
 func print_http_request_detail(request *http.Request) {
